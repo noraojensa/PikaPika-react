@@ -20,20 +20,26 @@ function PokemonCard() {
         //checks the nr in the image name and takes that as index in the pokemonlist to check against the input
         if(pokemonNameChange.toLowerCase() === pokemonList[pokemonImage.slice(5, -4)-1].toLowerCase()){
             handleImageSwitch();
+            setCorrectNumberOfPokemons(correctNumberOfPokemons + 1);
         }
       }
 
     const [pokemonImage, setPokemonImage] = useState("Gen1/1.png")
     const handleImageSwitch = () => {
+        console.log(pokemonImage);
+        console.log(pokemonName);
         //puts current image nr + 1 in a temp, which will be concatenated with strings to build next image
         var temp = +pokemonImage.slice(5, -4) + 1;
         setPokemonImage("Gen1/" + temp + ".png");
+        //increments text with current pokemon
         setCurrentNumber(currentNumber + 1);
         //clears input box
         setPokemonName("");
     }
 
     const [currentNumber, setCurrentNumber] = useState(0);
+    const [correctNumberOfPokemons, setCorrectNumberOfPokemons] = useState(0);
+
 
     return (
         <div className='PokemonCard'>
@@ -47,12 +53,11 @@ function PokemonCard() {
                     type='text'
                     autoComplete='off'
                     value={pokemonName}  
-                    onChange={handleChange}                  />
-                    <Button buttonStyle='btn--outline'>Skip</Button>
+                    onChange={handleChange}                 />
                 </form>
+                <Button buttonStyle='btn--outline' onClick={handleImageSwitch}>Skip</Button>
                 <p>{currentNumber + 1}/151</p>
-                <p>3 correct</p>
-                <h5>Poke name: {pokemonName}</h5>
+                <p>{correctNumberOfPokemons} correct</p>
             </div>
         </div>
     );
