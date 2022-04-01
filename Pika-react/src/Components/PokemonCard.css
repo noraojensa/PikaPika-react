@@ -14,6 +14,7 @@
     left: 50%;
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
+    justify-content: center;
   }
 
   .card__container p {
@@ -22,8 +23,13 @@
       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 
+  .belowFormWrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .poke-img {
-      width: 250px;
+      width: 248px;
       display: flex;
   }
     
@@ -40,6 +46,8 @@
     font-size: 18px;
     margin-bottom: 16px;
     border: 1px solid #fff;
+    color: #7a7a7a;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 
   

@@ -1,7 +1,7 @@
 import React from 'react';
 import './PokemonCard.css';
 import { Button } from './Button';
-import { useState } from "react";
+import { useState, useEffect} from "react";
 
 
 
@@ -40,24 +40,51 @@ function PokemonCard() {
     const [currentNumber, setCurrentNumber] = useState(0);
     const [correctNumberOfPokemons, setCorrectNumberOfPokemons] = useState(0);
 
+  
+    //Kollar enter-knappen med eventlister, om nedtryckt -> skip
+    const downHandler = e => {
+        console.log(e)
+        if(e.key === "Enter"){
+            console.log("jag har tryckt på enter!!");
+            console.log(pokemonImage);
+            handleImageSwitch();
+            
+        }
+    }
+
+    //useEffect körs bara vid re-renders och sparar då dess state. Specificera i sista listan vilka re-renders. [] = för hela sidan.
+    useEffect(() => {
+        console.log("hejehej")
+        window.addEventListener("keydown", downHandler);
+        // Remove event listeners on cleanup
+        return () => {
+        window.removeEventListener("keydown", downHandler);
+          };
+      }, [pokemonImage]);
+
+    
 
     return (
         <div className='PokemonCard'>
             <div className='card__container'>
                 <img className='poke-img' src= {pokemonImage} alt="Poke" onChange= {pokemonImage}/>
-                <form>
                     <input
                     id= 'myInput'
                     className='guess-input'
                     name='guess-input'
                     type='text'
                     autoComplete='off'
+                    spellcheck="false"
                     value={pokemonName}  
-                    onChange={handleChange}                 />
-                </form>
-                <Button buttonStyle='btn--outline' onClick={handleImageSwitch}>Skip</Button>
-                <p>{currentNumber + 1}/151</p>
-                <p>{correctNumberOfPokemons} correct</p>
+                    onChange={handleChange}
+                    />
+                <div className='belowFormWrapper'>
+                    <div>
+                        <p>{currentNumber + 1}/151</p>
+                        <p>{correctNumberOfPokemons} correct</p>
+                    </div>
+                    <Button buttonStyle='btn--outline' onClick={handleImageSwitch}>Skip</Button>
+                </div>
             </div>
         </div>
     );
